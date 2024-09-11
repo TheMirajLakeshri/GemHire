@@ -1,0 +1,294 @@
+/* Container for Login and Sign-Up */
+.toggle-login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f6fafa; /*linear-gradient(135deg, #6a11cb, #2575fc)*/
+  font-family: "Arial", sans-serif;
+}
+
+/* Card Styling */
+.card {
+  background: #4ec1bf;
+  border-radius: 12px; /* More subtle border radius */
+  box-shadow: 5px 5px 10px 1px rgba(68, 68, 68, 0.3); /* Softer shadow */
+  padding: 40px 50px;
+  width: 450px; /* Slightly reduced width */
+  max-width: 100%;
+  text-align: center;
+  box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+/* Logo */
+.logo img {
+  width: 100px; /* Smaller logo */
+  height: auto;
+  margin-bottom: 20px;
+}
+
+/* Toggle Switch Styling */
+.toggle-switch {
+  margin-bottom: 20px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 200px; /* Adjust width */
+  height: 50px; /* Adjust height */
+}
+
+/* .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+} */
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ddd;
+  transition: 0.4s;
+  border-radius: 25px; /* More rounded */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px; /* Adjust padding */
+  font-size: 16px; /* Smaller font size */
+  color: #fff;
+  font-weight: 600;
+}
+
+.switch-text {
+  position: absolute;
+  width: 50%;
+  text-align: center;
+  transition: opacity 0.4s, color 0.4s;
+}
+
+.company-text {
+  left: 2px;
+  opacity: 1;
+  color: white;
+}
+
+.employee-text {
+  right: 2px;
+  opacity: 1;
+  color: white;
+}
+
+input:checked + .slider .company-text {
+  opacity: 100;
+}
+
+input:checked + .slider .employee-text {
+  opacity: 100;
+}
+
+/* Change text color when the slider is checked and covers the text */
+input:checked + .slider .company-text {
+  color: #dab943; /* Change to white when slider covers company text */
+}
+
+input:not(:checked) + .slider .employee-text {
+  color: #dab943; /* Change to white when slider covers employee text */
+}
+
+.slider:before {
+  content: "";
+  position: absolute;
+  height: 40px; /* Adjust height */
+  width: 50%;
+  border-radius: 25px;
+  background-color: #dab943;
+  transition: 0.4s;
+  top: 5px;
+  left: 5px;
+}
+
+input:checked + .slider:before {
+  transform: translateX(90px); /* Adjust translation */
+}
+
+/* Forms Styling */
+.login-form {
+  margin-top: 20px;
+}
+
+.login-form-company,
+.login-form-employee {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-form h2 {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 24px; /* Larger font size */
+  font-weight: 700; /* Bold */
+}
+
+.login-form input {
+  width: calc(100% - 30px); /* Adjust width */
+  padding: 12px 16px; /* Adjust padding */
+  margin-bottom: 15px; /* Adjust margin */
+  border: 1px solid #ddd; /* Lighter border */
+  border-radius: 12px; /* Rounded corners */
+  font-size: 14px; /* Adjust font size */
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-form input:focus {
+  border-color: #dab943;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* Add shadow on focus */
+}
+
+.login-form button {
+  width: calc(100%); /* Adjust width */
+  padding: 12px 16px; /* Adjust padding */
+  border: none;
+  border-radius: 12px; /* Rounded corners */
+  background-color: #dab943;
+  box-shadow: 3px 5px 10px rgba(111, 111, 111, 0.4);
+  color: white;
+  font-size: 16px; /* Adjust font size */
+  font-weight: bolder;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.password-container {
+  position: relative;
+  width: 100%;
+}
+
+.password-container input {
+  width: 100%;
+  padding-right: 40px; /* Space for the icon */
+  box-sizing: border-box; /* Ensure padding doesn't overflow */
+}
+
+.password-toggle-icon {
+  position: absolute;
+  top: 43%;
+  right: 15px;
+  transform: translateY(-55%);
+  cursor: pointer;
+  color: #666;
+  z-index: 2; /* Ensure it's above the input field */
+}
+
+.login-form button:hover {
+  background-color: #86857d;
+  transform: translateY(-2px);
+}
+
+/* Options Links Styling */
+.login-options {
+  margin-top: 20px;
+  display: flex; /* Use flexbox to arrange links side by side */
+  justify-content: center; /* Distribute space between the links */
+}
+
+.forgot-password-link {
+  font-size: 14px;
+  text-decoration: none; /* Remove underline */
+  cursor: pointer;
+  color: rgb(72, 71, 71);
+}
+
+.forgot-password-link:hover {
+  color: black;
+}
+
+.signup-link {
+  margin-top: 5px;
+  padding: 8px 8px; /* Adjust padding */
+  border: none;
+  border-radius: 8px; /* Rounded corners */
+  background: none; /* Remove background */
+  color: black; /* Link color */
+  font-size: 16px; /* Adjust font size */
+  text-decoration: none; /* Remove underline */
+  cursor: pointer; /* Pointer cursor */
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.signup-link:hover {
+  color: white; /* Darker color on hover */
+  background-color: #dab943; /* Light background on hover */
+}
+.error-message {
+  color: red;
+  margin-block: 5px;
+}
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.dashboard-container button {
+  padding: 12px 16px; /* Adjust padding */
+  border: none;
+  border-radius: 10px; /* Rounded corners */
+  background-color: #dab943;
+  box-shadow: 3px 5px 10px rgba(111, 111, 111, 0.4);
+  color: white;
+  font-size: 16px; /* Adjust font size */
+  font-weight: bolder;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.dashboard-container button:hover{
+  background-color: #86857d;
+  transform: translateY(-2px);
+}
+.login-form-company{
+  transform: translateX(75%);
+	opacity: 0;
+	animation: slide-in-anim 0.5s ease-out forwards;
+}
+
+@keyframes slide-in-anim {
+	0% {
+		opacity: 0;
+	}
+  50%{
+    opacity: 0;
+  }
+	100% {
+    transform: translateX(0%);
+		opacity: 1;
+	}
+}
+
+.login-form-employee{
+  transform: translateX(-75%);
+	opacity: 0;
+	animation: slide-in-anim 0.5s ease-out forwards;
+}
+
+@keyframes slide-in-anim {
+	0% {
+		opacity: 0;
+	}
+  50%{
+    opacity: 0;
+  }
+	100% {
+    transform: translateX(0%);
+		opacity: 1;
+	}
+}
