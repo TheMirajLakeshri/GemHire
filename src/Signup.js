@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./Signup.css";
+import Navbar from "./Navbar";
 
 const SignUp = () => {
   const [isCompany, setIsCompany] = useState(true);
@@ -27,53 +28,84 @@ const SignUp = () => {
     e.preventDefault();
     navigate("/"); // Redirect to the login page
   };
+  
+  // Handle OAuth login with Google
+  const handleCompanyGoogleLogin = async () => {
+    try {
+      const authData = await pb.collection('company').authWithOAuth2({
+        provider: 'google',
+        redirectUrl: 'http://127.0.0.1:8090/api/oauth2-redirect',
+      });
+      
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("OAuth login failed:", error);
+    }
+  };
+  const handleEmployeeGoogleLogin = async () => {
+    try {
+      const authData = await pb.collection('employee').authWithOAuth2({
+        provider: 'google',
+        redirectUrl: 'http://127.0.0.1:8090/api/oauth2-redirect',
+      });
+      
+      navigate("/employee-dashboard");
+    } catch (error) {
+      console.error("OAuth login failed:", error);
+    }
+  };
 
   return (
-    <div className="toggle-signup-container">
-      <div className="card signup-card">
-        <div className="logo">
-          <img src={require("./images/logo.png")} alt="logo" />
-        </div>
-        <div className="toggle-switch">
-          <label className="switch">
-            <input
-              type="checkbox"
-              checked={!isCompany}
-              onChange={toggleLogin}
-            />
-            <span className="slider">
-              <span className="switch-text company-text">Company</span>
-              <span className="switch-text employee-text">Employee</span>
-            </span>
-          </label>
-        </div>
-        <div className="login-form">
-          {isCompany ? (
-            <CompanySignUpForm
-              passwordVisible={passwordVisible}
-              confirmPasswordVisible={confirmPasswordVisible}
-              togglePasswordVisibility={togglePasswordVisibility}
-              toggleConfirmPasswordVisibility={toggleConfirmPasswordVisibility}
-              navigate={navigate}
-            />
-          ) : (
-            <EmployeeSignUpForm
-              passwordVisible={passwordVisible}
-              confirmPasswordVisible={confirmPasswordVisible}
-              togglePasswordVisibility={togglePasswordVisibility}
-              toggleConfirmPasswordVisibility={toggleConfirmPasswordVisibility}
-              navigate={navigate}
-            />
-          )}
-        </div>
-        <div className="account-links">
-          <div className="account-question">Already have an account?</div>
-          <a className="login-link" href="#" onClick={handleLogin}>
-            Login
-          </a>
+    <>
+      <Navbar/>
+      <div className="toggle-signup-container">
+        <div className="card signup-card">
+          <div className="logo">
+            <img src={require("./images/logo.png")} alt="logo" />
+          </div>
+          <div className="toggle-switch">
+            <label className="switch">
+              <input
+                type="checkbox"
+                checked={!isCompany}
+                onChange={toggleLogin}
+              />
+              <span className="slider">
+                <span className="switch-text company-text">Company</span>
+                <span className="switch-text employee-text">Employee</span>
+              </span>
+            </label>
+          </div>
+          <div className="login-form">
+            {isCompany ? (
+              <CompanySignUpForm
+                passwordVisible={passwordVisible}
+                confirmPasswordVisible={confirmPasswordVisible}
+                togglePasswordVisibility={togglePasswordVisibility}
+                toggleConfirmPasswordVisibility={toggleConfirmPasswordVisibility}
+                navigate={navigate}
+                handleCompanyGoogleLogin={handleCompanyGoogleLogin}
+              />
+            ) : (
+              <EmployeeSignUpForm
+                passwordVisible={passwordVisible}
+                confirmPasswordVisible={confirmPasswordVisible}
+                togglePasswordVisibility={togglePasswordVisibility}
+                toggleConfirmPasswordVisibility={toggleConfirmPasswordVisibility}
+                navigate={navigate}
+                handleEmployeeGoogleLogin={handleEmployeeGoogleLogin}
+              />
+            )}
+          </div>
+          {/*<div className="account-links">
+            <div className="account-question">Already have an account?</div>
+            <a className="login-link" href="#" onClick={handleLogin}>
+              Login
+            </a>
+          </div>*/}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
@@ -83,6 +115,7 @@ const CompanySignUpForm = ({
   togglePasswordVisibility,
   toggleConfirmPasswordVisibility,
   navigate,
+  handleCompanyGoogleLogin,
 }) => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -140,7 +173,10 @@ const CompanySignUpForm = ({
           {confirmPasswordVisible ? <FaEyeSlash /> : <FaEye />}
         </span>
       </div>
-      <button type="submit">Submit</button>
+      <button className="signup-button" type="submit">Submit</button>
+      <div className="google-login">
+        <button className="login-with-google-btn" onClick={handleCompanyGoogleLogin} type="button" >Signup with Google</button>
+      </div>
     </form>
   );
 };
@@ -151,6 +187,7 @@ const EmployeeSignUpForm = ({
   togglePasswordVisibility,
   toggleConfirmPasswordVisibility,
   navigate,
+  handleEmployeeGoogleLogin
 }) => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -210,7 +247,10 @@ const EmployeeSignUpForm = ({
           {confirmPasswordVisible ? <FaEyeSlash /> : <FaEye />}
         </span>
       </div>
-      <button type="submit">Submit</button>
+      <button className="signup-button" type="submit">Submit</button>
+      <div className="google-login">
+        <button className="login-with-google-btn" onClick={handleEmployeeGoogleLogin} type="button" >Signup with Google</button>
+      </div>
     </form>
   );
 };
